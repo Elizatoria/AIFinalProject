@@ -1,23 +1,10 @@
 '''
-Convolutional Neural Network (CNN)
-Build Your CNN Model Structure
-=====================================
-This assignment does not require any training actions to be taken. 
-I just am looking for the base model that we've seen in multiple examples in class.  
-
-This should be a python class that inherits from the nn.Module object. 
-Within the object, create the __init__(self) and forward(self, x) functions and flesh them out with the model structure. 
-
-The model structure should involve a 2 convolutional layers and 2 max pooling layers (add 2 ReLU layers in between for extra points). 
-After the 2 sets of convolutional and max layers, add two layers of fully connected layers (Linear). 
-
-Remember that for the problem set we are focusing on (FashionMNIST), 
-the input image is 28x28 pixels big and the model is a classification model that categorizes the images into 10 different groupings.
-
-Feel free to use LLMs to help you, but prompt engineer with your knowledge gained from class. 
-Add helpful context like the python library we are using to help us, the dataset we are using for our model, 
-and the structure of the specific CNN model we are building. 
-Also refer to the notebooks I have provided in the files section on Teams for some helpful insight!
+Part 1 Loading the dataset and model - Due on 8/20/2024:
+For this part, you will have loaded the Fashion MNIST dataset and a CNN model using
+Python and the PyTorch library. This is the first checkpoint to make sure the training sessions
+will be performed properly. For the convolutional layers, kernel size should be set to 5, the
+number of filters should be set to 8 initially, and padding and stride should be set to their
+default values.
 '''
 import torch
 import torch.nn as nn
