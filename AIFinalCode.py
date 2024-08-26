@@ -8,6 +8,7 @@ import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 
+'''## Part One ##'''
 '''Load the Fashion MNIST Dataset'''
 # Define transformations
 transform = transforms.Compose([
@@ -60,6 +61,8 @@ dataiter = iter(trainloader)
 images, labels = next(dataiter)
 print(f"Batch size: {images.size()}")
 
+
+'''## Part 2: First Training Session ##'''
 '''Set the Initial Hyperparameters'''
 # Hyperparameters
 num_epochs = 3
@@ -126,66 +129,118 @@ with torch.no_grad():
 accuracy = 100 * correct / total
 print(f"Accuracy of the network on the 10,000 test images: {accuracy:.2f}%")
 
-'''
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to ./data\FashionMNIST\raw\train-images-idx3-ubyte.gz
-100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 26421880/26421880 [01:09<00:00, 381948.97it/s]
-Extracting ./data\FashionMNIST\raw\train-images-idx3-ubyte.gz to ./data\FashionMNIST\raw
 
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to ./data\FashionMNIST\raw\train-labels-idx1-ubyte.gz
-100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████| 29515/29515 [00:00<00:00, 235693.38it/s]
-Extracting ./data\FashionMNIST\raw\train-labels-idx1-ubyte.gz to ./data\FashionMNIST\raw
+'''## Part 3: Exploratory Analysis and Conclusion Drawing ##'''
+'''Exploratory Analysis'''
+# Define hyperparameter sets to explore
+filter_options = [8, 16, 32]
+batch_size_options = [32, 64, 128]
+num_epochs = 3
+learning_rate = 0.01
 
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to ./data\FashionMNIST\raw\t10k-images-idx3-ubyte.gz
-100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 4422102/4422102 [00:03<00:00, 1242829.04it/s]
-Extracting ./data\FashionMNIST\raw\t10k-images-idx3-ubyte.gz to ./data\FashionMNIST\raw
+# Function to create and train the model with different hyperparameters
+def train_with_hyperparams(num_filters, batch_size):
+    # Redefine the model with the new number of filters
+    class FashionMNIST_CNN(nn.Module):
+        def __init__(self):
+            super(FashionMNIST_CNN, self).__init__()
+            self.conv1 = nn.Conv2d(1, num_filters, kernel_size=5)
+            self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+            self.conv2 = nn.Conv2d(num_filters, num_filters * 2, kernel_size=5)
+            self.fc1 = nn.Linear(num_filters * 2 * 4 * 4, 120)
+            self.fc2 = nn.Linear(120, 84)
+            self.fc3 = nn.Linear(84, 10)
+            self.relu = nn.ReLU()
 
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to ./data\FashionMNIST\raw\t10k-labels-idx1-ubyte.gz
-100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5148/5148 [00:00<?, ?it/s]
-Extracting ./data\FashionMNIST\raw\t10k-labels-idx1-ubyte.gz to ./data\FashionMNIST\raw
+        def forward(self, x):
+            x = self.pool(self.relu(self.conv1(x)))
+            x = self.pool(self.relu(self.conv2(x)))
+            x = x.view(-1, num_filters * 2 * 4 * 4)
+            x = self.relu(self.fc1(x))
+            x = self.relu(self.fc2(x))
+            x = self.fc3(x)
+            return x
 
-FashionMNIST_CNN(
-  (conv1): Conv2d(1, 8, kernel_size=(5, 5), stride=(1, 1))
-  (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-  (conv2): Conv2d(8, 16, kernel_size=(5, 5), stride=(1, 1))
-  (fc1): Linear(in_features=256, out_features=120, bias=True)
-  (fc2): Linear(in_features=120, out_features=84, bias=True)
-  (fc3): Linear(in_features=84, out_features=10, bias=True)
-  (relu): ReLU()
-)
-Batch size: torch.Size([64, 1, 28, 28])
-[1, 100] loss: 0.916
-[1, 200] loss: 0.591
-[1, 300] loss: 0.537
-[1, 400] loss: 0.501
-[1, 500] loss: 0.478
-[1, 600] loss: 0.462
-[1, 700] loss: 0.440
-[1, 800] loss: 0.448
-[1, 900] loss: 0.433
-[2, 100] loss: 0.425
-[2, 200] loss: 0.393
-[2, 300] loss: 0.410
-[2, 400] loss: 0.406
-[2, 500] loss: 0.420
-[2, 600] loss: 0.411
-[2, 700] loss: 0.424
-[2, 800] loss: 0.408
-[2, 900] loss: 0.402
-[3, 100] loss: 0.372
-[3, 200] loss: 0.381
-[3, 300] loss: 0.378
-[3, 400] loss: 0.363
-[3, 500] loss: 0.368
-[3, 600] loss: 0.375
-[3, 700] loss: 0.393
-[3, 800] loss: 0.388
-[3, 900] loss: 0.396
-Finished Training
-c:\Users\Eliza\Documents\MachineLearning\AIFinalProject\AIFinalCode.py:107: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  model.load_state_dict(torch.load(PATH))
-Accuracy of the network on the 10,000 test images: 84.73%
-'''
+    model = FashionMNIST_CNN()
+
+    # Loss function and optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+    # Data loader with the new batch size
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
+    
+    # Training loop (same as before)
+    for epoch in range(num_epochs):
+        running_loss = 0.0
+        for i, data in enumerate(trainloader, 0):
+            inputs, labels = data
+            optimizer.zero_grad()
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
+        print(f"Finished Epoch {epoch + 1} with num_filters={num_filters}, batch_size={batch_size}")
+
+    # Save the model
+    PATH = f'./fashion_mnist_cnn_filters_{num_filters}_batch_{batch_size}.pt'
+    torch.save(model.state_dict(), PATH)
+
+    # Evaluate and return accuracy
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for data in testloader:
+            images, labels = data
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    
+    accuracy = 100 * correct / total
+    return accuracy, PATH
+
+# Dictionary to store results
+results = {}
+
+# Perform experiments
+for num_filters in filter_options:
+    for batch_size in batch_size_options:
+        accuracy, model_path = train_with_hyperparams(num_filters, batch_size)
+        results[(num_filters, batch_size)] = {'accuracy': accuracy, 'model_path': model_path}
+        print(f"Configuration: filters={num_filters}, batch_size={batch_size}, Accuracy: {accuracy:.2f}%")
+
+'''Conclusion Drawing'''
+import matplotlib.pyplot as plt
+
+# Extract data for plotting
+filter_values = [key[0] for key in results.keys()]
+batch_values = [key[1] for key in results.keys()]
+accuracies = [results[key]['accuracy'] for key in results.keys()]
+
+# Create the plots
+plt.figure(figsize=(10, 5))
+
+# Plot 1: Accuracy vs Number of Filters
+plt.subplot(1, 2, 1)
+plt.scatter(filter_values, accuracies, c='blue')
+plt.title('Accuracy vs Number of Filters')
+plt.xlabel('Number of Filters')
+plt.ylabel('Accuracy (%)')
+
+# Plot 2: Accuracy vs Batch Size
+plt.subplot(1, 2, 2)
+plt.scatter(batch_values, accuracies, c='red')
+plt.title('Accuracy vs Batch Size')
+plt.xlabel('Batch Size')
+plt.ylabel('Accuracy (%)')
+
+# Adjust layout and save the plots as an image
+plt.tight_layout()
+
+# Save the entire figure
+plt.savefig('accuracy_vs_filters_and_batch_size.png')
+
+# Display the plots
+plt.show()
