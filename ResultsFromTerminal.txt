@@ -1,4 +1,4 @@
-## First Run ##
+## First Run: No Part 3 ##
 
 Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
 Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to ./data\FashionMNIST\raw\train-images-idx3-ubyte.gz
@@ -63,7 +63,7 @@ c:\Users\Eliza\Documents\MachineLearning\AIFinalProject\AIFinalCode.py:107: Futu
 Accuracy of the network on the 10,000 test images: 84.73%
 
 
-## Second Run ##
+## Second Run: With Part 3 ##
 
 FashionMNIST_CNN(
   (conv1): Conv2d(1, 8, kernel_size=(5, 5), stride=(1, 1))
