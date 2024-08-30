@@ -31,7 +31,4 @@ class FashionMNIST_CNN(nn.Module):
         x = self.relu(self.fc2(x))
         x = self.fc3(x)
         return x
-
-# Initialize the model
-model = FashionMNIST_CNN()
 ```
