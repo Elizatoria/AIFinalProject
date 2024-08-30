@@ -38,6 +38,12 @@ model = FashionMNIST_CNN()
 ```
 
 # Results
-<p>The experiment revealed that increasing the number of filters from 8 to 32 resulted in a notable improvement in accuracy, from 85% to 92%. However, the impact of batch size on accuracy was less pronounced, with only marginal differences observed across different batch sizes. The results of the experiment are presented in the tables below:</p>
+<p>The experiments revealed that increasing the number of filters generally led to an improvement in model accuracy, although diminishing returns were observed beyond a certain point. The impact of batch size was more nuanced, with smaller batch sizes leading to slightly higher accuracy but at the cost of longer training times. The results of the experiment are presented in the tables below:</p>
 
 ![accuracy_vs_filters_and_batch_size](https://github.com/user-attachments/assets/9ccdfc22-8264-44bd-8c2c-37d3be29ba24)
+
+# Conclusion
+<p>The findings suggest that the number of filters in a CNN is a critical factor in improving classification accuracy for the Fashion MNIST dataset. Future work could explore additional hyperparameters or larger filter sizes to further optimize performance.</p>
+
+# Further Steps
+<p>Future investigations could include experimenting with learning rates, exploring the impact of additional convolutional layers, or implementing regularization techniques to prevent overfitting.</p>
