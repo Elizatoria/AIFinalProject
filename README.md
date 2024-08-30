@@ -36,3 +36,6 @@ class FashionMNIST_CNN(nn.Module):
 # Initialize the model
 model = FashionMNIST_CNN()
 ```
+
+# Results
+<p>The experiment revealed that increasing the number of filters from 8 to 32 resulted in a notable improvement in accuracy, from 85% to 92%. However, the impact of batch size on accuracy was less pronounced, with only marginal differences observed across different batch sizes. The results of the experiment are presented in the tables below:</p>
