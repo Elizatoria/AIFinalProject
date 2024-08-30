@@ -6,6 +6,7 @@
 
 # Process
 <p>The project began by loading the Fashion MNIST dataset and constructing a CNN model in PyTorch. Various hyperparameter configurations were tested, including filter sizes of 8, 16, and 32, and batch sizes of 32, 64, and 128. Each configuration was trained for three epochs, and the model's accuracy on the test set was recorded. Below is the code snippet showing the model architecture:</p>
+
 ```Python
 class FashionMNIST_CNN(nn.Module):
     def __init__(self):
@@ -31,4 +32,7 @@ class FashionMNIST_CNN(nn.Module):
         x = self.relu(self.fc2(x))
         x = self.fc3(x)
         return x
+
+# Initialize the model
+model = FashionMNIST_CNN()
 ```
