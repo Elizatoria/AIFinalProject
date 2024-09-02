@@ -47,3 +47,7 @@ model = FashionMNIST_CNN()
 
 # Further Steps
 <p>Future investigations could include experimenting with learning rates, exploring the impact of additional convolutional layers, or implementing regularization techniques to prevent overfitting.</p>
+
+
+I didn't gain any new information from ChatGPT, but I did use it as a Co-Pilot to help debug errors and explain things more fluently. Thus, I am including an APA style citation for it.
+OpenAI. (2024). ChatGPT (GPT-4) [Large language model]. https://chat.openai.com
